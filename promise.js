@@ -1,25 +1,32 @@
 const { promiseTheaterIXX, promiseTheaterVGC } = require("./external.js");
 
 // TODO: Buat fungsi promiseOutput sesuai ketentuan readme
-const promiseOutput = async (emosiPenonton) => {
-  await new Promise((emosiPenonton) => setTimeout(emosiPenonton, 200));
-  const penontonTheaterIXX = await promiseTheaterIXX(emosiPenonton);
-  const penontonTheaterVGC = await promiseTheaterVGC(emosiPenonton);
+const promiseOutput = async (emosi) => {
+  await new Promise((emosi) => setTimeout(emosi, 200));
+  const penontonTheaterIXX = await promiseTheaterIXX(emosi);
+  const penontonTheaterVGC = await promiseTheaterVGC(emosi);
 
-return new Promise((resolve) => {
-  let result = 0;
-  for(const emosi of penontonTheaterIXX){
-    if(emosiPenonton === emosi.hasil){
+return new Promise((resolve, reject) => {
+  if(resolve) {
+    let result = 0;
+  for(const emosiPenonton of penontonTheaterIXX){
+    if(emosi === emosiPenonton.hasil){
       result++;
     }
   }
 
-  for(const emosi of penontonTheaterVGC){
-    if(emosiPenonton === emosi.hasil){
+  for(const emosiPenonton of penontonTheaterVGC){
+    if(emosi === emosiPenonton.hasil){
       result++
     }
   }
-  return resolve(result);
+    return resolve(result);
+  } else {
+    reject("data tidak ditemukan");
+  }
+  
+  
+  
 }) 
 
 }
